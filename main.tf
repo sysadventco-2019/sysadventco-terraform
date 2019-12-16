@@ -38,3 +38,17 @@ resource "github_repository" "example-service" {
   homepage_url       = "https://sysadvent.blogspot.com/"
   gitignore_template = "Rails"
 }
+
+resource "github_repository_webhook" "example-service-new-hook" {
+  repository = github_repository.example-service.name
+
+  configuration {
+    url          = "https://web.hook.com/"
+    content_type = "form"
+    insecure_ssl = false
+  }
+
+  active = false
+
+  events = ["issues"]
+}
